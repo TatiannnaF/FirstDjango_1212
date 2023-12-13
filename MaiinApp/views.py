@@ -29,6 +29,7 @@ def about(request):
         Фамилия: <b>{author['surname']}</b></br> 
         телефон: <b>{author['phone']}</b></br> 
         email: <b>{author['email']}</b></br>
+        <a href='/items'> Home </a>
         """
     return HttpResponse(result)
 
