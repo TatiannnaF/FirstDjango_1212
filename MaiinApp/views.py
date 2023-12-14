@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render
 from MaiinApp.models import Item
+from django.core.exceptions import ObjectDoesNotExist
 
 # author = {'name': 'Ivan_Petrovich',
 #           'surname': 'Ivanov',
@@ -53,12 +54,15 @@ def get_item(request, id):
         #     """
         #     return HttpResponse(result)
     """По указанному ай-ди функция возвращает имя и кол-во через шаблон"""
-    item = Item.objects.get(id=id)
-    context = {
-        'item': item
-    }
-    return render(request, "item-page.html", context)
-    # return HttpResponseNotFound (f'Item with id={id} not found')
+    try:
+        item = Item.objects.get(id=id)
+    except ObjectDoesNotExist:
+        return HttpResponseNotFound(f'Item with id={id} not found')
+    else:
+        context = {
+            'item': item
+        }
+        return render(request, "item-page.html", context)
 
 def items_list(request):
     # result = "<h2>Список товаров</h2><ol>"

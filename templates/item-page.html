@@ -1,26 +1,12 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Item page</title>
-</head>
-<body>
-    <header>
-        / <a href="/">Home</a> / <a href="/items">Items</a> / <a href="/about">About</a> /
-    </header>
-    <h2>Item: {{ item.name }}</h2>
-<!--    {% if item.quantity %}-->
-<!--    &lt;!&ndash; <div>Количество: {{ item.quantity }} </div> &ndash;&gt;-->
-<!--    <div>Количество: {{ item.count }} </div>-->
-<!--    {% else %}-->
-<!--    <div>Товар отсутствует </div>-->
-<!--    {% endif %}-->
+{% extends 'base.html' %}
 
-    <!-- Вместо {% if %}...{% endif %} можно написать такую конструкцию в одну строку:
-    <div> Количество: {{ item.quantity| default: "Товар отсутствует" }} </div> -->
 
-    <div> Количество: {{ item.count| default: "Товар отсутствует" }} </div>
+{% block content %}
+{# Подставляем содержимое файла inc-menu.html #}
+{% include 'inc-menu.html' %}
+<h2> {{ item.name }} </h2>
+<div> {{ item.brand }} </div>
 
-    <a href="/items">Back</a>
-</body>
-</html>
+<div> Количество: {{ item.count| default:"Товар отсутствует" }} </div>
+<a href="{% url 'items-list' %}">Back</a>
+{% endblock %}
